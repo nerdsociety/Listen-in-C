@@ -6,15 +6,15 @@ Abgabedatum: 10.6.2018
 Gruppe: 1,2,3
 Gruppenmitglieder:
 Rida Ahmed       793251
-Gabor Juche      793094
-Stephan Scholz   791220
+Gabor Juche      793013
+Stephan Scholz   794098
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #define vz printf("\n")
 
-int delete_head();
+int delete_head(); // deklaration der Funktion, um Warnung des Compilers zu verhindert
 int check=1; // globale Hilfsvariable
 
 //----anlegen der Struktur le mit variable "listenelement" vom selbigen Typ-----
@@ -79,7 +79,7 @@ void filterEven(list *l){
     if(vor->next != NULL){
       delete_head(l);
       vor = dummy;
-      dummy = dummy->next;        // akuelles Listenelement auf next
+      dummy = dummy->next;        // aktuelles Listenelement auf next
     }
     else{
       if(vor->value%2==1){
@@ -90,7 +90,7 @@ void filterEven(list *l){
     }
   }
   //  Nach dem ersten geraden Element müssen die Elemente verknüpft werden
-  //  also kann nichtmehr nur der Head gelöscht werden
+  //  also kann nicht mehr nur der Head gelöscht werden
   while(vor!= NULL){
   //  print_list(*l);
     vz;
