@@ -27,7 +27,7 @@ void insert(int v, list *l){
 //-------------------Prozedur zum löschen aller Listenelemente------------------
 void delete_all(list * l){
   list next;
-  while(*l != NULL){
+  while(*l != NULL){              //prüfen, ob Liste Elemente enthält ist
     next=(*l)->next;
     free(*l);
     *l = next;
@@ -66,7 +66,7 @@ void filterEven(list *l){
     if(vor->next != NULL){
       delete_head(l);
       vor = dummy;
-      dummy = dummy->next;
+      dummy = dummy->next;        // akuelles Listenelement auf next
     }
     else{
       if(vor->value%2==1){
@@ -77,18 +77,18 @@ void filterEven(list *l){
     }
   }
   //  Nach dem ersten geraden Element müssen die Elemente verknüpft werden
-  //  also kann nichtmehr nur der HEad gelöscht werden
+  //  also kann nichtmehr nur der Head gelöscht werden
   while(vor!= NULL){
   //  print_list(*l);
     vz;
     int tmp= 0;        // Kontrollvariable ob gelöscht wurde
-    if(dummy->value%2==1 ||-(dummy->value)%2==1 ){
-      if(dummy->next == NULL){
+    if(dummy->value%2==1 ||-(dummy->value)%2==1 ){  // prüfen, ob next Listenelemnt ungerade ist
+      if(dummy->next == NULL){  //prüfen, ob es das letzte Listenelement List
         vor->next= NULL;
         break;
         }
       else{
-        vor->next =dummy->next;
+        vor->next =dummy->next; //next vom aktuellen Element wird auf das übernächste Element gesetzt
         tmp=1;
         }
       free(dummy);
@@ -121,32 +121,29 @@ void swap(int *a, int *b)
 }
 void sort(int m,list *l){                   // InsertionSort-Methode
 if (m>=0) {                                 // für aufsteigendes sortieren
-  if (*l== NULL && check==1){               //  leere Liste-Case
+  if (*l== NULL && check==1){               // leere Liste-Case
     printf("\nleere Liste bekommen \n");
     return;
   }
-  list dumb = *l;                           //  die komplette Liste
+  list dumb = *l;                           // die komplette Liste
   list dumb2 = NULL;
 
-while(*l!=NULL&& (*l)->next !=NULL){
+while(*l!=NULL&& (*l)->next !=NULL){        // prüfen ob aktuelles und nächstes Element ungleich NULL
   if((*l)->next->value ==(*l)->value){      // für gleiche Zahlen
-    *l=(*l)->next;
+    *l=(*l)->next;                          // Liste wird weiter durchgegangen
   }
   else if((*l)->next->value >(*l)->value){  // falls Bedingung ok list
     *l=(*l)->next;
 }
-  else{                                     //  falls getauscht werden muss
-    // vz;
-    // print_list(*l);
-    // vz;
+  else{                                     // falls getauscht werden muss
     swap(&(*l)->value,&(*l)->next->value);
     *l = dumb;
 }
 }
 *l=dumb;
 }
-else if(m<0){                               //  für absteigendes sortieren
-  if (*l== NULL && check==1){               //  leere Liste-Case
+else if(m<0){                               // für absteigendes sortieren
+  if (*l== NULL && check==1){               // leere Liste-Case
     printf("\nleere Liste bekommen \n");
     return;
   }
@@ -175,10 +172,10 @@ else if(m<0){                               //  für absteigendes sortieren
 //-------------------------- Beginn Funktionen ---------------------------------
 //---------------Funktion zum Einfügen eines neuen Listenelements---------------
 int delete_head(list * l){
-  if (*l == NULL) return -1;
+  if (*l == NULL) return -1;    //leere Liste-Case
   list old = *l;
-  *l = old ->next;
-  free(old);
+  *l = old ->next;              //Pointer auf das erste Element wird auf next gesetzt
+  free(old);                    //Speicherplatz des ersten Listenelementes wird freigegeben
   return 0;
 }
 //------------------------------------------------------------------------------
@@ -186,10 +183,9 @@ int delete_head(list * l){
 //------------------Funktion zum ermitteln der Länger der Liste-----------------
 int length(list l){
   int count = 0;
-  while(l!= NULL){
+  while(l!= NULL){              // Listenelemente werden gezählt
     count++;
     l=l->next;
-
   }
   return count;
 }
@@ -199,13 +195,13 @@ int length(list l){
 int positionOf(int v,list l){
 int i=0;
     while(l!=NULL){
-      if(l->value == v){
+      if(l->value == v){      //prüfen, ob value der geuchte Wert ist
       return i;
     }
 
       else {
         i++;
-        l = l->next;
+        l = l->next;          // Liste wird durchgegangen
       }
     }
     if (l==NULL){
@@ -217,22 +213,63 @@ int i=0;
 
 //----------------------------main()-Funktion-----------------------------------
 int main(){
+int auswahl = 1, s = 0, k = 0, f = 0, zaehler = 0;
 list L=NULL;    // neue leere Liste
-insert(24,&L);  // ab hier
-insert(7,&L);   // werden alle Werte
-insert(6,&L);   // an die Liste übergeben
-insert(7,&L);
-insert(4,&L);
-insert(-14,&L);
-insert(18,&L);
-insert(-93,&L);
-insert(43,&L);
-insert(1,&L);
-insert(15,&L);
-printf("%i",positionOf(43,L));  // Augabe der Position von 43
-vz;
-filterEven(&L); // Alle ungeraden Werte aus der Liste entfernen
-print_list(L);  // Ausgebe der Liste
-//printf("%i",L->next->next->value);
+
+printf("\n---- Initialisieren der Liste ----\n\n---- Size der Liste bestimmen ----\n\nAnzahl der Liste eingeben: ");
+scanf("%i",&f);
+
+printf("\n---- Liste befuellen ----\n\nZahlen eingeben und jeweils mit Enter bestaetigen: \n");
+
+while(zaehler<f){
+    printf("%i Zahl eingeben: ", zaehler);
+    zaehler++;
+    scanf("%i",&k);
+    insert(k,&L);
+}
+
+printf("\nEs wurde eine List mit folgenden Elementen erzeugt: ");
+print_list(L); // Ausgebe der Liste
+
+while(auswahl>0){
+  printf("\n\n---- Sie befinden sich im Hauptmenue ----");
+  printf("\n \n {1} Loeschen des ersten Elementes\n");
+  printf(" {2} Loeschen aller Elemente\n");
+  printf(" {3} Laenge der Liste\n");
+  printf(" {4} Liste sortieren\n");
+  printf(" {5} Liste auf grade Zahlen sortieren (ungerade werden gelöscht!)\n");
+  printf(" {6} Position eines Wertes\n");
+  printf("\n {0} Programm beenden\n\n");
+  scanf("%i",&auswahl);
+
+  switch(auswahl) {
+     case 0:
+        break;
+	   case 1:
+        delete_head(&L);
+        print_list(L); break;
+	   case 2:
+        delete_all(&L);
+//      print_list(L);
+        printf("\nDie Liste ist jetzt leer!\n"); break;
+	   case 3:
+        printf("Laenge der Liste: %i\n", length(L)); break;
+     case 4:
+        sort(1,&L);   // sortieren aller Werte der Liste
+        printf("\nListe sortiert: \n");
+        print_list(L); break;
+     case 5:
+        filterEven(&L); // Alle ungeraden Werte aus der Liste entfernen
+        printf("\nListe aller geraden Zahlen (ungerade gelöscht): \n");
+        print_list(L); break;
+     case 6:
+        printf("\nBitte Zahl eingeben: ");
+        scanf("%i",&s);
+        printf("Die Postion lautet: %i \n",positionOf(s,L)); break; // Position eines Elementes der Liste bestimmen
+	   default:
+        printf("Bitte eine gueltige Eingabe von 0 - 6\n"); break;
+    }
+
+}
 }
 //--------------------------  Ende Funktionen ----------------------------------
