@@ -1,7 +1,20 @@
+/*
+Praxis der Programmierung
+Hausaufgabe 1
+Abgabedatum: 10.6.2018
+
+Gruppe: 1,2,3
+Gruppenmitglieder:
+Rida Ahmed       793251
+Gabor Juche      793094
+Stephan Scholz   791220
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #define vz printf("\n")
 
+int delete_head();
 int check=1; // globale Hilfsvariable
 
 //----anlegen der Struktur le mit variable "listenelement" vom selbigen Typ-----
@@ -213,7 +226,7 @@ int i=0;
 
 //----------------------------main()-Funktion-----------------------------------
 int main(){
-int auswahl = 1, s = 0, k = 0, f = 0, zaehler = 0;
+int auswahl = 1, s = 0, k = 0, f = 0, zaehler = 1;
 list L=NULL;    // neue leere Liste
 
 printf("\n---- Initialisieren der Liste ----\n\n---- Size der Liste bestimmen ----\n\nAnzahl der Liste eingeben: ");
@@ -221,7 +234,7 @@ scanf("%i",&f);
 
 printf("\n---- Liste befuellen ----\n\nZahlen eingeben und jeweils mit Enter bestaetigen: \n");
 
-while(zaehler<f){
+while(zaehler<=f){
     printf("%i Zahl eingeben: ", zaehler);
     zaehler++;
     scanf("%i",&k);
