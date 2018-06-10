@@ -14,7 +14,7 @@ Stephan Scholz   794098
 #include <stdlib.h>
 #define vz printf("\n")
 
-int delete_head(); // deklaration der Funktion, um Warnung des Compilers zu verhindert
+int delete_head(); // Deklaration der Funktion, um Warnung des Compilers zu verhindern
 int check=1; // globale Hilfsvariable
 
 //----anlegen der Struktur le mit variable "listenelement" vom selbigen Typ-----
